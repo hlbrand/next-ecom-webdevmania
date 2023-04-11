@@ -31,7 +31,10 @@ export default function Home({ featuredProducts }) {
 }
 
 export async function getServerSideProps() {
-  const { data } = await axios.get(`http://localhost:3000/api/products`);
+  const { data } = await axios.get(
+    `http://localhost:3000/api/products` ||
+      `https://next-ecom-webdevmania.vercel.app/api/products`
+  );
 
   return {
     props: {
