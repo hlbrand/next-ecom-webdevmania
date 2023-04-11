@@ -6,10 +6,11 @@ import Hero from "../components/Hero";
 import Categories from "../components/Categories";
 import FeaturedProducts from "../components/FeaturedProducts";
 import Footer from "../components/Footer";
+import axios from "axios";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home({ featuredProducts }) {
   return (
     <>
       <Head>
@@ -21,7 +22,7 @@ export default function Home() {
           <Navbar />
           <Hero />
           <Categories />
-          <FeaturedProducts />
+          <FeaturedProducts products={featuredProducts} />
           <Footer />
         </>
       </Head>
@@ -29,6 +30,12 @@ export default function Home() {
   );
 }
 
-// export async function getServerSideProps() {
-//   return;
-// }
+export async function getServerSideProps() {
+  const { data } = await axios.get(`http://localhost:3000/api/products`);
+
+  return {
+    props: {
+      featuredProducts: data,
+    },
+  };
+}
