@@ -20,33 +20,60 @@ const ProductDetails = ({ product }) => {
   return (
     <>
       <Layout>
-        <div>
+        <div className="py-20 h-full w-full flex justify-center">
           {/* left */}
-          <div>
-            <Image
-              src={product?.image}
-              width="500"
-              height="1250"
-              alt="product image"
-              onError={() => console.log("Failed to load image")}
-            />
-          </div>
-          {/* right */}
-          <div>
-            <h2>productname</h2>
-            <span>
-              Category: <span>actual category</span>
-            </span>
-            <p>desc</p>
-            <div>
-              <span onClick={() => addQuantity("-")}>-</span>
-              <span>{quantity}</span>
-              <span onClick={() => addQuantity("+")}>+</span>
+          <div className="h-full w-10/12 flex justify-between">
+            <div className="flex-1">
+              <Image
+                src={product?.image}
+                width="500"
+                height="1250"
+                alt="product image"
+                onError={() => console.log("Failed to load image")}
+              />
             </div>
-            <span>$123</span>
-            <button>
-              Add to Cart <AiFillShopping />
-            </button>
+
+            {/* right */}
+            <div className="flex-1 flex flex-col gap-8">
+              <h2 className="text-[20px] text-[#333]">
+                Name of Product:
+                <span className="text-orange-500 ml-2">{product?.name}</span>
+              </h2>
+              <span className="text-[20px] flex items-center gap-4">
+                Category:
+                <span className="px-4 py-2 text-[#efefef] text-[16px] bg-black rounded-xl">
+                  {product?.category}
+                </span>
+              </span>
+              <p className="text-[20px] text-[#333]">
+                Description:
+                <span className="text-orange-500 ml-2 text-ellipsis">
+                  {product?.desc}
+                </span>
+              </p>
+              <div className="flex gap-6 items-center">
+                <span
+                  className="bg-slate-300 px-4 py-2 text-[18px]"
+                  onClick={() => addQuantity("-")}
+                >
+                  -
+                </span>
+                <span>{quantity}</span>
+                <span
+                  className="bg-slate-300 px-4 py-2 text-[18px]"
+                  onClick={() => addQuantity("+")}
+                >
+                  +
+                </span>
+              </div>
+              <span className="text-[20px] text-[#333]">
+                Price:{" "}
+                <span className="text-orange-500 ml-2">${product?.price}</span>
+              </span>
+              <button className="mt-auto py-2 px-5 rounded-lg flex items-center gap-4 bg-black text-[#efefef] max-w-max hover:bg-orange-500 transition-all">
+                Add to Cart <AiFillShopping />
+              </button>
+            </div>
           </div>
         </div>
       </Layout>
@@ -60,8 +87,8 @@ export async function getServerSideProps(ctx) {
   const id = ctx.params.id;
 
   const { data: product } = await axios.get(
-    `${process.env.DOMAIN_URL}/api/products/${id}` ||
-      `http://localhost:3000/api/products/${id}`
+    // `${process.env.DOMAIN_URL}/api/products/${id}` ||
+    `http://localhost:3000/api/products/${id}`
   );
 
   return {
