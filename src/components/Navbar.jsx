@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
+import Hero from "./Hero";
 
 const Navbar = () => {
   return (
@@ -16,7 +17,7 @@ const Navbar = () => {
             Home
           </li>
           <li className="cursor-pointer transition-all hover:text-[#efefefe6]">
-            Hero
+            {/* <Hero /> */}
           </li>
           <li className="cursor-pointer transition-all hover:text-[#efefefe6]">
             Categories
